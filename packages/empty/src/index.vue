@@ -1,7 +1,9 @@
 <template>
   <div class="el-empty">
     <div class="el-empty__image" :style="imageStyle">
-      <img v-if="image" :src="image" ondragstart="return false">
+      <!-- !LEARN:img标签 ondragstart事件 -->
+      <!-- return false来取消默认事件 -->
+      <img v-if="image" :src="image" ondragstart="return false" />
       <slot v-else name="image">
         <img-empty />
       </slot>
@@ -17,34 +19,39 @@
 </template>
 
 <script>
-import ImgEmpty from './img-empty.vue';
-import { t } from 'element-ui/src/locale';
+import ImgEmpty from "./img-empty.vue";
+
+/** !LEARN: locale*/
+import { t } from "element-ui/src/locale";
 
 export default {
-  name: 'ElEmpty',
+  name: "ElEmpty",
   components: {
-    [ImgEmpty.name]: ImgEmpty
+    // TODO: ??? [ImgEmpty.name]: ImgEmpty
+    [ImgEmpty.name]: ImgEmpty,
   },
   props: {
     image: {
       type: String,
-      default: ''
+      default: "",
     },
     imageSize: Number,
     description: {
       type: String,
-      default: ''
-    }
+      default: "",
+    },
   },
   computed: {
+    /** 计算属性也是响应式数据 */
     emptyDescription() {
-      return this.description || t('el.empty.description');
+      /** 依赖于别的响应式数据 */
+      return this.description || t("el.empty.description");
     },
     imageStyle() {
       return {
-        width: this.imageSize ? `${this.imageSize}px` : ''
+        width: this.imageSize ? `${this.imageSize}px` : "",
       };
-    }
-  }
+    },
+  },
 };
 </script>

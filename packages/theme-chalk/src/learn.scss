@@ -1,0 +1,37 @@
+// @minxin 和 @include
+// @mixin 指令允许我们定义一个可以在整个样式表中重复使用的样式。
+// @include 指令可以将混入（mixin）引入到文档中。
+// 定义混入
+@mixin important-text {
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid blue;
+}
+// 使用混入
+.danger {
+  @include important-text;
+  background-color: green;
+}
+/** 转换为css后
+.danger {
+  color: red;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid blue;
+  background-color: green;
+}
+*/
+
+// 向混入传递变量(可以定义默认值)
+@mixin bordered($color: yellow, $width) {
+  border: $width solid $color;
+}
+
+myArticle {
+  @include bordered(blue, 1px); // 调用混入，并传递两个参数
+}
+
+.myNotes {
+  @include bordered(red, 2px); // 调用混入，并传递两个参数
+}

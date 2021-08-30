@@ -4,50 +4,59 @@
       'el-link',
       type ? `el-link--${type}` : '',
       disabled && 'is-disabled',
-      underline && !disabled && 'is-underline'
+      underline && !disabled && 'is-underline',
     ]"
     :href="disabled ? null : href"
     v-bind="$attrs"
     @click="handleClick"
   >
-
     <i :class="icon" v-if="icon"></i>
-
+    <!-- 默认插槽 -->
     <span v-if="$slots.default" class="el-link--inner">
       <slot></slot>
     </span>
-
-    <template v-if="$slots.icon"><slot v-if="$slots.icon" name="icon"></slot></template>
+    <!-- 具名插槽 -->
+    <template v-if="$slots.icon">
+      <slot name="icon"></slot>
+    </template>
   </a>
 </template>
 
 <script>
-
 export default {
-  name: 'ElLink',
+  name: "ElLink",
 
   props: {
     type: {
       type: String,
-      default: 'default'
+      default: "default",
     },
     underline: {
       type: Boolean,
-      default: true
+      default: true,
     },
     disabled: Boolean,
     href: String,
-    icon: String
+    icon: String,
   },
 
   methods: {
     handleClick(event) {
-      if (!this.disabled) {
-        if (!this.href) {
-          this.$emit('click', event);
-        }
+      // if (!this.disabled) {
+      //   if (!this.href) {
+      //     this.$emit("click", event);
+      //   }
+      // }
+      if (!this.disabled && !this.href) {
+        this.$emit("click", event);
       }
-    }
-  }
+    },
+  },
 };
+
+/**
+ * !LEARN
+ * v-bind="$attrs"
+ * :class=[]
+ */
 </script>
